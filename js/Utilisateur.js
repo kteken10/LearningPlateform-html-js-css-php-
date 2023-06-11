@@ -21,7 +21,12 @@ $(document).ready(function() {
               icon: 'success',
               title: 'Utilisateur Enregistré avec succès',
               text: 'Bienvenue '+localStorage.getItem('user_name')
+            }).then(function() {
+              // Rediriger l'utilisateur vers la page index.html
+              window.location.href = 'index.html';
             });
+           
+            
           } else {
             
             // Afficher une alerte d'erreur avec SweetAlert
@@ -94,7 +99,7 @@ $(document).ready(function() {
               text: 'Connecté avec succes',
               confirmButtonText: 'OK'
             }).then(function() {
-              window.location.href = 'page_success.html';
+              window.location.href = 'index.html';
             });
           } else {
             // L'utilisateur n'est pas enregistré dans la base de données
