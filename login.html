@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentification</title>
+  <!-- Liens vers les fichiers CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- Liens vers les fichiers JavaScript de Bootstrap (jQuery requis) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <script src="js/Utilisateur.js"></script>
+
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Logo du site</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-book"></i> Cours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> À propos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-envelope"></i> Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html"><i class="fas fa-lock"></i> Connexion</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 mt-5">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="showLoginForm()">Connexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="showRegisterForm()">Inscription</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="sliding-forms">
+              <div id="loginCard">
+                <!-- Contenu du formulaire de connexion ici -->
+                <h4>Formulaire de connexion</h4>
+                <form>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="conemail" placeholder="Votre email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="conpassword" placeholder="Votre mot de passe">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
+              </div>
+              <div id="registerCard" style="display: none;">
+                <!-- Contenu du formulaire d'inscription ici -->
+                <h4>Formulaire d'inscription</h4>
+                <form id="inscriptionForm">
+                  <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" id="name" placeholder="Votre nom" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Votre email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" id="password" placeholder="Votre mot de passe" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="userType">Type d'utilisateur</label>
+                    <select class="form-control" id="userType" required>
+                      <option value="visiteur">Visiteur</option>
+                      <option value="formateur">Formateur</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="profilePic">Photo de profil</label>
+                    <input type="file" class="form-control-file" id="profilePic">
+                  </div>
+                  <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour afficher le formulaire de connexion avec une animation de glissement
+    function showLoginForm() {
+      $('#loginCard').slideDown();
+      $('#registerCard').slideUp();
+    }
+
+    // Fonction pour afficher le formulaire d'inscription avec une animation de glissement
+    function showRegisterForm() {
+      $('#registerCard').slideDown();
+      $('#loginCard').slideUp();
+    }
+  </script>
+</body>
+</html>
