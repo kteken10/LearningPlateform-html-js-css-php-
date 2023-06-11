@@ -31,6 +31,20 @@ class UtilisateurDAO {
         return null;
     }
 }
+   
+    // Méthode pour récupérer un utilisateur par son email
+    public function getUtilisateurByEmail($email,$password) {
+        $sql = "SELECT * FROM Utilisateur WHERE email = :email AND mot_de_passe = :mot_de_passe";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':mot_de_passe', $password);
+        $stmt->execute();
+        
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return ($utilisateur !== false) ? $utilisateur : null;
+    }
 
 
     

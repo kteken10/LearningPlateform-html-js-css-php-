@@ -26,6 +26,11 @@ class UtilisateurService {
         return $this->utilisateurDAO->getUserById($id);
     }
     
+     // Méthode pour récupérer un utilisateur par son email
+     public function getUtilisateurByEmail($email,$password) {
+        // Appeler la méthode du DAO pour récupérer l'utilisateur par son email
+        return $this->utilisateurDAO->getUtilisateurByEmail($email,$password);
+    }
     // Méthode pour récupérer tous les utilisateurs
     public function getAllUsers() {
         // Appeler la méthode du DAO pour récupérer tous les utilisateurs

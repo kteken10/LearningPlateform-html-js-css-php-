@@ -28,8 +28,8 @@ class UtilisateurController {
         echo json_encode($response);
     }
 
-    public function updateUtilisateur( $utilisateur) {
-        $success = $this->utilisateurService->updateUtilisateur($utilisateur);
+    public function updateUtilisateur($id, $utilisateur) {
+        $success = $this->utilisateurService->updateUtilisateur($id, $utilisateur);
 
         if ($success) {
             $response = [
@@ -58,6 +58,25 @@ class UtilisateurController {
             $response = [
                 'success' => false,
                 'message' => 'Utilisateur non trouvé'
+            ];
+        }
+
+        echo json_encode($response);
+    }
+
+    public function verifyUtilisateur($email, $password) {
+        $utilisateur = $this->utilisateurService->getUtilisateurByEmail($email,$password);
+
+        if ($utilisateur !== null) {
+            $response = [
+                'success' => true,
+                'message' => 'Utilisateur vérifié avec succès',
+                'data' => $utilisateur
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Email ou mot de passe incorrect'
             ];
         }
 
@@ -109,6 +128,11 @@ switch ($method) {
 
             // Appel de la méthode getUtilisateurById avec l'ID de l'utilisateur
             $utilisateurController->getUtilisateurById($id);
+        } else if (isset($_GET['email']) && isset($_GET['password'])) {
+            // Appel de la méthode verifyUtilisateur avec l'email et le mot de passe
+            $email = $_GET['email'];
+            $password = $_GET['password'];
+            $utilisateurController->verifyUtilisateur($email, $password);
         } else {
             // Paramètre manquant dans la requête
             $response = [
@@ -135,7 +159,7 @@ switch ($method) {
         $id = $data['id'];
 
         // Appel de la méthode updateUtilisateur avec l'ID de l'utilisateur et les données de mise à jour
-        $utilisateurController->updateUser($id, $data);
+        $utilisateurController->updateUtilisateur($id, $data);
         break;
 
     case 'DELETE':
@@ -158,4 +182,6 @@ switch ($method) {
         echo json_encode($response);
         break;
 }
+
+
 ?>

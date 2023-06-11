@@ -19,8 +19,8 @@ $(document).ready(function() {
             // Afficher une alerte de succès avec SweetAlert
             Swal.fire({
               icon: 'success',
-              title: 'Enregistrement Reuissit',
-              text: 'Bienvenue '
+              title: 'Utilisateur Enregistré avec succès',
+              text: 'Bienvenue '+localStorage.getItem('user_name')
             });
           } else {
             
@@ -28,7 +28,7 @@ $(document).ready(function() {
             Swal.fire({
               icon: 'error',
               title: 'Erreur',
-              text: response.message
+              text: 'OUPS !! Utilisateur Non enregistré '
             });
           }
           
@@ -65,7 +65,64 @@ $(document).ready(function() {
       enregistrerUtilisateur(nom, email,mot_de_passe, type_utilisateur, photo_profil);
     });
 
-
+    $('#conForm').submit(function(event) {
+      event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+      
+      var email = $('#conemail').val(); // Récupérer la valeur de l'email
+      var password = $('#conpassword').val(); // Récupérer la valeur du mot de passe
+      localStorage.setItem('conpassword', password);
+      localStorage.setItem('conemail', email);
+      
+      // Envoyer la requête Ajax
+      $.ajax({
+        url: 'controller/UtilisateurController.php', // URL du script PHP pour la vérification de l'utilisateur
+        dataType: 'json',
+        type: 'GET',
+        data: {
+          email: email,
+          password: password
+        },
+        success: function(response) {
+          // Traitement de la réponse du serveur
+          
+          if (response.success) {
+            // L'utilisateur est enregistré dans la base de données
+            // Faire les actions nécessaires (par exemple, rediriger l'utilisateur vers une autre page)
+            Swal.fire({
+              icon: 'success',
+              title: 'Succès',
+              text: 'L\'utilisateur est enregistré dans la base de données',
+              confirmButtonText: 'OK'
+            }).then(function() {
+              window.location.href = 'page_success.html';
+            });
+          } else {
+            // L'utilisateur n'est pas enregistré dans la base de données
+            // Afficher un message d'erreur
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: 'Utilisateur non Reconnu veuillez vous inscrire',
+              confirmButtonText: 'OK'
+            });
+          }
+        },
+        error: function(xhr, status, error) {
+          // Gestion des erreurs lors de la requête AJAX
+          console.error(error);
+          
+          // Afficher un message d'erreur générique
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur s\'est produite lors de la requête AJAX.',
+            confirmButtonText: 'OK'
+          });
+        }
+      });
+    });
+    
+    
 
 
   });
