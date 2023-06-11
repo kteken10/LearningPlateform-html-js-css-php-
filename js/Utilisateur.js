@@ -91,7 +91,7 @@ $(document).ready(function() {
             Swal.fire({
               icon: 'success',
               title: 'Succès',
-              text: 'L\'utilisateur est enregistré dans la base de données',
+              text: 'Connecté avec succes',
               confirmButtonText: 'OK'
             }).then(function() {
               window.location.href = 'page_success.html';
