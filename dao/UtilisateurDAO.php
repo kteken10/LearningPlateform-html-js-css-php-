@@ -1,6 +1,6 @@
 <?php
 
-require_once 'connexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/CourseProject/connexion.php';
 
 class UtilisateurDAO {
     private $conn; // Objet de connexion à la base de données
@@ -12,7 +12,7 @@ class UtilisateurDAO {
     }
     
    // Méthode pour créer un nouvel utilisateur dans la base de données
-public function createUser($utilisateur) {
+   public function createUser($utilisateur) {
     $sql = "INSERT INTO Utilisateur (nom, email, mot_de_passe, type_utilisateur, photo_profil, date_inscription) 
             VALUES (:nom, :email, :mot_de_passe, :type_utilisateur, :photo_profil, :date_inscription)";
 
@@ -22,7 +22,7 @@ public function createUser($utilisateur) {
     $stmt->bindValue(':mot_de_passe', $utilisateur['mot_de_passe']);
     $stmt->bindValue(':type_utilisateur', $utilisateur['type_utilisateur']);
     $stmt->bindValue(':photo_profil', $utilisateur['photo_profil']);
-    $stmt->bindValue(':date_inscription', $utilisateur['date_inscription']);
+    $stmt->bindValue(':date_inscription', date('Y-m-d H:i:s')); // Utilise la date actuelle du serveur
 
     if ($stmt->execute()) {
         // Retourne l'ID de l'utilisateur créé
@@ -31,6 +31,7 @@ public function createUser($utilisateur) {
         return null;
     }
 }
+
 
     
     // Méthode pour récupérer un utilisateur par son identifiant

@@ -1,125 +1,161 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/service/UtilisateurService.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/CourseProject/service/UtilisateurService.php';
 
 class UtilisateurController {
-    private $utilisateurService; // Objet Service pour l'entité Utilisateur
-    
-    // Constructeur
+    private $utilisateurService;
+
     public function __construct() {
         $this->utilisateurService = new UtilisateurService();
     }
-    
-    // Méthode pour gérer la création d'un nouvel utilisateur
-    public function createUser() {
-        // Vérifier que les données nécessaires ont été envoyées en POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['nom']) && !empty($_POST['email']) && !empty($_POST['mot_de_passe'])) {
-            $utilisateur = [
-                'nom' => $_POST['nom'],
-                'email' => $_POST['email'],
-                'mot_de_passe' => $_POST['mot_de_passe'],
-                'type_utilisateur' => $_POST['type_utilisateur'], // Ajouter d'autres données si nécessaire
-                'photo_profil' => $_FILES['photo_profil']['name'], // Récupérer le nom du fichier de la photo de profil
-                'date_inscription' => date('Y-m-d') // Date d'inscription actuelle
-            ];
-            
-            // Enregistrer le fichier de la photo de profil dans le dossier souhaité
-            $targetDir = 'uploads/';
-            $targetFile = $targetDir . basename($_FILES['photo_profil']['name']);
-            move_uploaded_file($_FILES['photo_profil']['tmp_name'], $targetFile);
-            
-            // Appeler la méthode du service pour créer l'utilisateur
-            $userId = $this->utilisateurService->createUser($utilisateur);
-            
-            if ($userId !== null) {
-                // L'utilisateur a été créé avec succès
-                // Rediriger ou afficher un message de succès
-                header('Location: success.php');
-                exit();
-            } else {
-                // Il y a eu une erreur lors de la création de l'utilisateur
-                // Afficher un message d'erreur
-                echo 'Une erreur s\'est produite lors de la création de l\'utilisateur.';
-            }
-        } else {
-            // Les données nécessaires n'ont pas été fournies ou la requête n'est pas de type POST
-            // Afficher un message d'erreur ou rediriger vers une page d'erreur
-            echo 'Veuillez fournir tous les champs obligatoires.';
-        }
-    }
-    
-    // Méthode pour gérer la récupération d'un utilisateur par son identifiant
-    public function getUserById($id) {
-        // Appeler la méthode du service pour récupérer l'utilisateur par son identifiant
-        $utilisateur = $this->utilisateurService->getUserById($id);
-        
-        // Vérifier si l'utilisateur a été trouvé
+
+    public function createUtilisateur($utilisateur) {
+        $utilisateur = $this->utilisateurService->createUser($utilisateur);
+
         if ($utilisateur !== null) {
-            // L'utilisateur a été trouvé, afficher les détails ou effectuer d'autres opérations
-            // ...
-        } else {
-            // L'utilisateur n'a pas été trouvé, afficher un message d'erreur ou rediriger vers une page d'erreur
-            echo 'L\'utilisateur demandé n\'existe pas.';
-        }
-    }
-    
-    // Méthode pour gérer la récupération de tous les utilisateurs
-    public function getAllUsers() {
-        // Appeler la méthode du service pour récupérer tous les utilisateurs
-        $utilisateurs = $this->utilisateurService->getAllUsers();
-        
-        // Afficher la liste des utilisateurs ou effectuer d'autres opérations
-        // ...
-    }
-    
-    // Méthode pour gérer la mise à jour d'un utilisateur
-    public function updateUser($id) {
-        // Vérifier que les données nécessaires ont été envoyées en POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['nom']) && !empty($_POST['email'])) {
-            $utilisateur = [
-                'id_utilisateur' => $id,
-                'nom' => $_POST['nom'],
-                'email' => $_POST['email'],
-                'type_utilisateur' => $_POST['type_utilisateur'], // Ajouter d'autres données si nécessaire
-                // ... Autres champs à mettre à jour
+            $response = [
+                'success' => true,
+                'message' => 'Utilisateur créé avec succès',
+                'data' => $utilisateur
             ];
-            
-            // Appeler la méthode du service pour mettre à jour l'utilisateur
-            $result = $this->utilisateurService->updateUser($utilisateur);
-            
-            if ($result) {
-                // L'utilisateur a été mis à jour avec succès
-                // Rediriger ou afficher un message de succès
-                header('Location: success.php');
-                exit();
-            } else {
-                // Il y a eu une erreur lors de la mise à jour de l'utilisateur
-                // Afficher un message d'erreur
-                echo 'Une erreur s\'est produite lors de la mise à jour de l\'utilisateur.';
-            }
         } else {
-            // Les données nécessaires n'ont pas été fournies ou la requête n'est pas de type POST
-            // Afficher un message d'erreur ou rediriger vers une page d'erreur
-            echo 'Veuillez fournir tous les champs obligatoires.';
+            $response = [
+                'success' => false,
+                'message' => 'Erreur lors de la création de l\'utilisateur'
+            ];
         }
+
+        echo json_encode($response);
     }
-    
-    // Méthode pour gérer la suppression d'un utilisateur
-    public function deleteUser($id) {
-        // Appeler la méthode du service pour supprimer l'utilisateur
-        $result = $this->utilisateurService->deleteUser($id);
-        
-        if ($result) {
-            // L'utilisateur a été supprimé avec succès
-            // Rediriger ou afficher un message de succès
-            header('Location: success.php');
-            exit();
+
+    public function updateUtilisateur( $utilisateur) {
+        $success = $this->utilisateurService->updateUtilisateur($utilisateur);
+
+        if ($success) {
+            $response = [
+                'success' => true,
+                'message' => 'Utilisateur mis à jour avec succès'
+            ];
         } else {
-            // Il y a eu une erreur lors de la suppression de l'utilisateur
-            // Afficher un message d'erreur
-            echo 'Une erreur s\'est produite lors de la suppression de l\'utilisateur.';
+            $response = [
+                'success' => false,
+                'message' => 'Utilisateur non trouvé'
+            ];
         }
+
+        echo json_encode($response);
     }
-    
-   
+
+    public function deleteUtilisateur($id) {
+        $success = $this->utilisateurService->deleteUtilisateur($id);
+
+        if ($success) {
+            $response = [
+                'success' => true,
+                'message' => 'Utilisateur supprimé avec succès'
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Utilisateur non trouvé'
+            ];
+        }
+
+        echo json_encode($response);
+    }
+
+    public function getUtilisateurById($id) {
+        $utilisateur = $this->utilisateurService->getUtilisateurById($id);
+
+        if ($utilisateur !== null) {
+            $response = [
+                'success' => true,
+                'data' => $utilisateur
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Utilisateur non trouvé'
+            ];
+        }
+
+        echo json_encode($response);
+    }
+
+    public function getAllUtilisateurs() {
+        $utilisateurs = $this->utilisateurService->getAllUtilisateurs();
+
+        $response = [
+            'success' => true,
+            'data' => $utilisateurs
+        ];
+
+        echo json_encode($response);
+    }
 }
+
+// Vérification de la méthode de la requête HTTP
+$method = $_SERVER['REQUEST_METHOD'];
+
+// Création d'une instance de UtilisateurController
+$utilisateurController = new UtilisateurController();
+
+// Traitement des différentes méthodes de requête
+switch ($method) {
+    case 'GET':
+        // Récupération de l'ID de l'utilisateur depuis la requête
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+
+            // Appel de la méthode getUtilisateurById avec l'ID de l'utilisateur
+            $utilisateurController->getUtilisateurById($id);
+        } else {
+            // Paramètre manquant dans la requête
+            $response = [
+                'success' => false,
+                'message' => 'Paramètre manquant dans la requête'
+            ];
+            echo json_encode($response);
+        }
+        break;
+
+    case 'POST':
+        // Récupération des données JSON de la requête
+        $data = $_POST;
+
+        // Appel de la méthode createUtilisateur avec les données de l'utilisateur
+        $utilisateurController->createUtilisateur($data);
+        break;
+
+    case 'PUT':
+        // Récupération des données JSON de la requête
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        // Récupération de l'ID de l'utilisateur à mettre à jour
+        $id = $data['id'];
+
+        // Appel de la méthode updateUtilisateur avec l'ID de l'utilisateur et les données de mise à jour
+        $utilisateurController->updateUser($id, $data);
+        break;
+
+    case 'DELETE':
+        // Récupération de l'ID de l'utilisateur à supprimer
+        $id = $_GET['id'];
+
+        // Appel de la méthode deleteUtilisateur avec l'ID de l'utilisateur
+        $utilisateurController->deleteUtilisateur($id);
+        break;
+
+    default:
+        // Méthode non prise en charge
+        $response = [
+            'success' => false,
+            'message' => 'Méthode non prise en charge'
+        ];
+
+        // Affichage de l'erreur pour débogage
+        error_log('Unsupported method: ' . $method);
+        echo json_encode($response);
+        break;
+}
+?>

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'dao/UtilisateurDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/CourseProject/dao/UtilisateurDAO.php';
 
 class UtilisateurService {
     private $utilisateurDAO; // Objet DAO pour l'entité Utilisateur
