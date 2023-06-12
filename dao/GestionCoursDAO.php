@@ -38,8 +38,9 @@ public function ajouterCours($cours) {
         return $stmt->execute();
     }
     
-    // Méthode pour obtenir la liste des cours
-    public function getListeCours() {
+    
+     // Méthode pour obtenir la liste de tous les cours
+     public function getAllCours() {
         $sql = "SELECT * FROM Cours";
         
         $stmt = $this->conn->prepare($sql);
