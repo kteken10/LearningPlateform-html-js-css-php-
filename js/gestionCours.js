@@ -31,14 +31,21 @@ $(document).ready(function() {
           // Traiter la réponse du serveur
           if (response.success) {
             // Le cours a été ajouté avec succès
-            console.log("Cours ajouté avec succès");
-            console.log(response.data); // Afficher les données du cours ajouté
+            Swal.fire({
+              icon: 'success',
+              title: 'Cours ajouté avec succès',
+              text: response.data, // Utilisez les données du cours ajouté ici
+            });
           } else {
             // Une erreur s'est produite lors de l'ajout du cours
-            console.log("Erreur lors de l'ajout du cours");
-            console.log(response.message); // Afficher le message d'erreur
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur lors de l\'ajout du cours',
+              text: response.message, // Utilisez le message d'erreur ici
+            });
           }
-        },
+        }
+        ,
         error: function(xhr, status, error) {
           // Gérer les erreurs de la requête Ajax
           console.log("Erreur de la requête Ajax");
@@ -58,19 +65,32 @@ $(document).ready(function() {
         dataType: "json",
         success: function(response) {
           // Traiter la réponse du serveur
+          var nombre_cours = response.data.length;
           if (response.success) {
             // Les cours ont été récupérés avec succès
-            console.log("Liste des cours récupérée avec succès");
+            Swal.fire({
+              icon: 'success',
+              title: 'Liste des cours récupérée avec succès',
+              text: 'Total de cour trouvé :'+nombre_cours, // Utilisez les données des cours récupérés ici
+            });
+        
             console.log(response.data); // Afficher les données des cours récupérés
-            
+        
             // Afficher les cours dans le tableau
             displayCoursList(response.data);
           } else {
             // Une erreur s'est produite lors de la récupération des cours
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur lors de la récupération des cours',
+              text: response.message, // Utilisez le message d'erreur ici
+            });
+        
             console.log("Erreur lors de la récupération des cours");
             console.log(response.message); // Afficher le message d'erreur
           }
-        },
+        }
+        ,
         error: function(xhr, status, error) {
           // Gérer les erreurs de la requête Ajax
           console.log("Erreur de la requête Ajax");
