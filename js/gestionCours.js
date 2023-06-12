@@ -34,7 +34,7 @@ $(document).ready(function() {
             Swal.fire({
               icon: 'success',
               title: 'Cours ajouté avec succès',
-              text: response.data, // Utilisez les données du cours ajouté ici
+              text: 'Bravo!!', // Utilisez les données du cours ajouté ici
             });
           } else {
             // Une erreur s'est produite lors de l'ajout du cours
