@@ -18,5 +18,4 @@
         - InscriptionController.php
         - GestionCoursController.php
         - index.php
-<iframe width="1190" height="480" src="https://www.youtube.com/embed/1ukSR1GRtMU?list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ" title="Flutter Tutorial for Beginners #1 - Intro &amp; Setup" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-<iframe width="1190" height="480" src="https://www.youtube.com/embed/5XTrp2PlBYw" title="Comprendre les bases du réseau en moins de 6 minutes !!!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="1190" height="480" src="https://www.youtube.com/embed/F6eHIGgPSNQ" title="Introduction à la Gestion Financière : Role et structure de l&#39;entreprise" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
