@@ -9,22 +9,21 @@ $(document).ready(function() {
             success: function(response) {
                 // Traitement de la réponse JSON reçue du serveur
                 if (response.success) {
-                    // La création du formateur a réussi
-                    console.log("Formateur créé avec succès");
-                    console.log(response.data); // Afficher les données du formateur créé
+                  
                     Swal.fire({
                         icon: 'success',
-                        title: 'Formateur créé avec succès',
-                        text: response.message
+                        title: 'Formateur  '+localStorage.getItem('user_name') +'  créé avec succès',
+                        text: 'bonne formation'
                     });
+                    localStorage.setItem('user_role', 'formateur');
+                    
+                    localStorage.setItem('user_id',response.data);
                 } else {
-                    // La création du formateur a échoué
-                    console.log("Erreur lors de la création du formateur");
-                    console.log(response.message); // Afficher le message d'erreur
+                   
                     Swal.fire({
                         icon: 'error',
                         title: 'Erreur lors de la création du formateur',
-                        text: response.message
+                        text: 'Un formateur existe déja avec L\' adresse  mail:  '+localStorage.getItem('conemail') +'  Connecter vous pour dispenser vos cour'
                     });
                 }
             },
@@ -54,7 +53,6 @@ $(document).ready(function() {
             mot_de_passe: mot_de_passe,
             email: email
         };
-
         createFormateur(formData);
     });
 });

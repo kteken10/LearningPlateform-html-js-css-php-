@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Cours</title>
+    <!-- Inclure les liens vers les fichiers CSS et JavaScript requis -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/Formateur.js"></script>
+    <script src="js/Utilisateur.js"></script>
+    <script src="js/gestionCours.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Logo du site</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-book"></i> Cours</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> À propos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-envelope"></i> Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html"><i class="fas fa-lock"></i> Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="formateur-link"><i
+                                    class="fas fa-chalkboard-teacher"></i> Devenir Formateur</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <h1>Gestion des Cours</h1>
+
+        
+    
+    <!-- Formulaire d'ajout de cours -->
+<form id="ajoutCoursForm">
+    <h2>Ajouter un Cours</h2>
+    <div class="mb-3">
+        <label for="image_fond">Image de Fond</label>
+        <input type="file" class="form-control-file" id="image_fond">
+    </div>
+    <div class="mb-3">
+        <label for="libelle" class="form-label"><i class="fas fa-tag"></i> Libellé</label>
+        <input type="text" class="form-control" id="libelle" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label"><i class="fas fa-file-alt"></i> Description</label>
+        <textarea class="form-control" id="description" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="video" class="form-label"><i class="fab fa-youtube"></i> Lien vidéo</label>
+        <input type="text" class="form-control" id="video" required>
+    </div>
+    <div class="mb-3">
+        <label for="categorie" class="form-label"><i class="fas fa-list"></i> Catégorie</label>
+        <select class="form-control" id="categorie" required>
+            <option value="developpement">Développement</option>
+            <option value="finance">Finance</option>
+            <option value="art design">Art & Design</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
+</form>
+
+
+        <!-- Liste des cours -->
+        <div id="listeCours">
+            <h2>Liste des Cours</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="coursBody">
+                    <!-- Les cours seront ajoutés dynamiquement ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+   
+</body>
+</html>

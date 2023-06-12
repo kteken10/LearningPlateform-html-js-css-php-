@@ -4,14 +4,17 @@
         - CoursDAO.php
         - FormateurDAO.php
         - InscriptionDAO.php
+        - GestionCoursDAO.php
     - service/
         - UtilisateurService.php
         - CoursService.php
         - FormateurService.php
         - InscriptionService.php
+        - GestionCoursService.php
     - controller/
         - UtilisateurController.php
         - CoursController.php
         - FormateurController.php
         - InscriptionController.php
-    - index.php
+        - GestionCoursController.php
+        - index.php

@@ -94,14 +94,21 @@ $(document).ready(function() {
             // L'utilisateur est enregistré dans la base de données
             // Faire les actions nécessaires (par exemple, rediriger l'utilisateur vers une autre page)
             Swal.fire({
-              icon: 'success',
-              title: 'Succès',
-              text: 'Connecté avec succes',
-              confirmButtonText: 'OK'
+                icon: 'success',
+                title: 'Succès',
+                text: 'Connecté avec succès',
+                confirmButtonText: 'OK'
             }).then(function() {
-              window.location.href = 'index.html';
+                var userRole = localStorage.getItem('user_role');
+                if (userRole === 'formateur') {
+                    window.location.href = 'formateur.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+                console.log(userRole);
             });
-          } else {
+        }
+        else {
             // L'utilisateur n'est pas enregistré dans la base de données
             // Afficher un message d'erreur
             Swal.fire({
