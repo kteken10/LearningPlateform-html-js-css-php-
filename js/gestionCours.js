@@ -119,40 +119,44 @@ $(document).ready(function() {
   
     // Gestionnaire d'événement pour le bouton de suppression d'un cours
     $(document).on("click", "#listeCours .btn-danger", function() {
-      var coursId = $(this).data("id");
+      var id_cours = $(this).data("id");
+      
+     
       
       // Effectuer ici votre traitement Ajax pour supprimer le cours avec l'ID spécifié
       
-      // Exemple de code Ajax
+     
       $.ajax({
         url: "controller/GestionCoursController.php",
-        type: "POST",
+        type:'GET',
         data: {
-          action: "delete",
-          coursId: coursId
+          id_cours: id_cours,
+          action: 'delete'
         },
         dataType: "json",
         success: function(response) {
-          // Traiter la réponse du serveur
-          if (response.success) {
-            // Le cours a été supprimé avec succès
-            console.log("Cours supprimé avec succès");
-            console.log(response.data); // Afficher les données du cours supprimé
-  
-            // Mettre à jour la liste des cours après la suppression
-            getCoursList();
-          } else {
-            // Une erreur s'est produite lors de la suppression du cours
-            console.log("Erreur lors de la suppression du cours");
-            console.log(response.message); // Afficher le message d'erreur
-          }
+            // Traiter la réponse du serveur
+            if (response.success) {
+                // Le cours a été supprimé avec succès
+                console.log("Cours supprimé avec succès");
+                console.log(response.data); // Afficher les données du cours supprimé
+    
+                // Mettre à jour la liste des cours après la suppression
+                getCoursList();
+            } else {
+                // Une erreur s'est produite lors de la suppression du cours
+                console.log("Erreur lors de la suppression du cours");
+                console.log(response.message); // Afficher le message d'erreur
+            }
         },
         error: function(xhr, status, error) {
-          // Gérer les erreurs de la requête Ajax
-          console.log("Erreur de la requête Ajax");
-          console.log(xhr.responseText); // Afficher la réponse du serveur en cas d'erreur
+            // Gérer les erreurs de la requête Ajax
+            console.log("Erreur de la requête Ajax");
+            console.log(xhr.responseText); // Afficher la réponse du serveur en cas d'erreur
         }
-      });
+    });
+    
+
     });
   
     // Appeler la fonction pour récupérer la liste des cours lors du chargement de la page

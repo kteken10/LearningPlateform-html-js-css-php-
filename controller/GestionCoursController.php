@@ -103,17 +103,37 @@ $gestionCoursController = new GestionCoursController();
 // Traitement des différentes méthodes de requête
 switch ($method) {
     case 'GET':
-        // Récupération de l'ID du cours depuis la requête
-        if (isset($_GET['idCours'])) {
-            $idCours = $_GET['idCours'];
-
-            // Appel de la méthode getCoursById avec l'ID du cours
-            $gestionCoursController->getCoursById($idCours);
+        // Vérification de l'action dans la requête GET
+        if (isset($_GET['action']) && $_GET['action'] === 'delete') {
+            // Récupération de l'ID du cours à supprimer depuis la requête GET
+            if (isset($_GET['id_cours'])) {
+                $idCours = $_GET['id_cours'];
+    
+                // Appel de la méthode deleteCours avec l'ID du cours
+                $gestionCoursController->deleteCours($idCours);
+            } else {
+                // ID du cours non fourni dans la requête
+                $response = [
+                    'success' => false,
+                    'message' => 'ID du cours manquant dans la requête'
+                ];
+                echo json_encode($response);
+            }
         } else {
-            // Appel de la méthode getAllCours pour récupérer tous les cours
-            $gestionCoursController->getAllCours();
+            // Aucune action de suppression demandée, récupération des cours
+            // Récupération de l'ID du cours depuis la requête
+            if (isset($_GET['id_cours'])) {
+                $idCours = $_GET['id_cours'];
+    
+                // Appel de la méthode getCoursById avec l'ID du cours
+                $gestionCoursController->getCoursById($idCours);
+            } else {
+                // Appel de la méthode getAllCours pour récupérer tous les cours
+                $gestionCoursController->getAllCours();
+            }
         }
         break;
+    
 
     case 'POST':
         // Récupération des données JSON de la requête
@@ -134,13 +154,7 @@ switch ($method) {
         $gestionCoursController->updateCours($idCours, $data);
         break;
 
-    case 'DELETE':
-        // Récupération de l'ID du cours à supprimer
-        $idCours = $_GET['idCours'];
-
-        // Appel de la méthode deleteCours avec l'ID du cours
-        $gestionCoursController->deleteCours($idCours);
-        break;
+        
 
     default:
         // Méthode non prise en charge
