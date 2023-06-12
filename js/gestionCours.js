@@ -9,6 +9,7 @@ $(document).ready(function() {
       var description = $("#description").val();
       var video = $("#video").val();
       var categorie = $("#categorie").val();
+      var id_formateur=parseInt(localStorage.getItem("id_formateur"));
   
       // Effectuer ici votre traitement Ajax pour ajouter le cours
       // Utiliser les valeurs récupérées des champs du formulaire
@@ -22,7 +23,8 @@ $(document).ready(function() {
           libelle: libelle,
           description: description,
           video: video,
-          categorie: categorie
+          categorie: categorie,
+          id_formateur:id_formateur
         },
         dataType: "json",
         success: function(response) {

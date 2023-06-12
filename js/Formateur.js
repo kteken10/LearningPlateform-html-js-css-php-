@@ -16,8 +16,7 @@ $(document).ready(function() {
                         text: 'bonne formation'
                     });
                     localStorage.setItem('user_role', 'formateur');
-                    
-                    localStorage.setItem('user_id',response.data);
+                    localStorage.setItem('id_formateur',response.data);
                 } else {
                    
                     Swal.fire({
